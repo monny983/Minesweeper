@@ -28,7 +28,7 @@ int main()
     cout << "Hey there, enter a valid dimension! ";
     cin >> matrix_dimension;
     
-     bool result = validateMatrixDimension(matrix_dimension);
+    bool result = validateMatrixDimension(matrix_dimension);
     while (result == false)
     {
         cout << "Enter again! ";
