@@ -2,6 +2,17 @@
 #include<cstring>
 using namespace std;
 
+const int max_X_coordinate = 100;
+const int max_Y_coordinate = 100;
+
+const int maxNumberOfHiddenMines = 30;
+
+//Дали клетката е свободна. Тук вече допускаме, че x_coordinate и y_coordinate са валидни координати.
+bool isCellFree(char playerBoard[max_X_coordinate][max_Y_coordinate], int x_coordinate, int y_coordinate)
+{
+    return playerBoard[x_coordinate][y_coordinate] == '*';
+}
+
 bool validateMatrixDimension(int matrix_dimension)
 {
     if (matrix_dimension >= 3 && matrix_dimension <= 10)
@@ -21,6 +32,39 @@ bool validateMineCount(int enteredMineCount, int matrix_dimension)
     else
     {
         return false;
+    }
+}
+
+void createPlayerBoard(int matrix_dimension, char playerBoard[max_X_coordinate][max_Y_coordinate])
+{
+    for (int i = 0; i < matrix_dimension; i++)
+    {
+        for (int j = 0; j < matrix_dimension; j++)
+        {
+            playerBoard[i][j] = '*';
+
+        }
+    }
+}
+
+void addMinesToBoard(char playerBoard[max_X_coordinate][max_Y_coordinate], int enteredMineCount, int matrix_dimension)
+{
+    for (int j = 0; j < enteredMineCount; j++)
+    {
+
+        int randomRow = (rand() % matrix_dimension) + 1;
+        int randomColumn = (rand() % matrix_dimension) + 1;
+
+        bool isCellFreeResult = isCellFree(playerBoard, randomRow, randomColumn);
+
+        while (isCellFreeResult == false) {
+            randomRow = (rand() % matrix_dimension) + 1;
+            randomColumn = (rand() % matrix_dimension) + 1;
+
+            isCellFreeResult = isCellFree(playerBoard, randomRow, randomColumn);
+        }
+
+        playerBoard[randomRow][randomColumn] = '@';
     }
 }
 
@@ -58,4 +102,10 @@ int main()
         cin >> enteredMineCount;
         resultValidateMineCount = validateMineCount(enteredMineCount, matrix_dimension);
     }
+    
+    createPlayerBoard(matrix_dimension, playerBoard);
+
+    createPlayerBoard(matrix_dimension, helpingBoard);
+
+    addMinesToBoard(helpingBoard, enteredMineCount, matrix_dimension);
 }
