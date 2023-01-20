@@ -321,6 +321,16 @@ bool openSquare(char playerBoard[max_X_coordinate][max_Y_coordinate], char helpi
     return true;
 }
 
+void markSquresAsMines(char playerBoard[max_X_coordinate][max_Y_coordinate], int x_coordinate, int y_coordinate)
+{
+    playerBoard[x_coordinate][y_coordinate] = '!';
+}
+
+void unmarkSquresAsMines(char playerBoard[max_X_coordinate][max_Y_coordinate], int x_coordinate, int y_coordinate)
+{
+    playerBoard[x_coordinate][y_coordinate] = '*';
+}
+
 int main()
 {
     char playerBoard[max_X_coordinate][max_Y_coordinate] = {};
