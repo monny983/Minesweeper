@@ -330,7 +330,7 @@ int main()
     cout << "Helping board visualization:" << endl;
     print(helpingBoard, matrix_dimension);
     
-     while (playing)
+    while (playing)
     {
         cout << "Hey there, enter a valid command!";
         cin >> command;
@@ -382,5 +382,5 @@ int main()
         }
 
 
-   
+    }
 }
