@@ -244,6 +244,47 @@ void addNumberToBoard(char board[max_X_coordinate][max_Y_coordinate], char helpi
     board[x_coordinate][y_coordinate] = (char)resultCountTheNumberOfMines;
 }
 
+bool isNeighbour(char helpingBoard[max_X_coordinate][max_Y_coordinate], int currentElementX, int currentElementY, int possibleNeighbourX, int possibleNeighbourY)
+{
+    if (currentElementX - 1 == possibleNeighbourX && currentElementY == possibleNeighbourY) {
+        return true;
+    }
+
+    if (currentElementX == possibleNeighbourX && currentElementY - 1 == possibleNeighbourY)
+    {
+        return true;
+    }
+
+    if (currentElementX == possibleNeighbourX && currentElementY + 1 == possibleNeighbourY)
+    {
+        return true;
+    }
+
+    if (currentElementX + 1 == possibleNeighbourX && currentElementY + 1 == possibleNeighbourY){
+        return true;
+    }
+
+    if (currentElementX + 1 == possibleNeighbourX && currentElementY == possibleNeighbourY)
+    {
+        return true;
+    }
+
+    if (currentElementX + 1 == possibleNeighbourX && currentElementY - 1 == possibleNeighbourY) {
+        return true;
+    }
+
+    if (currentElementX - 1 == possibleNeighbourX && currentElementY + 1 == possibleNeighbourY)
+    {
+        return true;
+    }
+
+    if (currentElementX - 1 == possibleNeighbourX && currentElementY - 1 == possibleNeighbourY) {
+        return true;
+    }
+
+    return false;
+}
+
 bool openSquare(char playerBoard[max_X_coordinate][max_Y_coordinate], char helpingBoard[max_X_coordinate][max_Y_coordinate], int x_coordinate, int y_coordinate, int matrix_dimension)
 {
     if (helpingBoard[x_coordinate][y_coordinate] == '@')
