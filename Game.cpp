@@ -69,9 +69,8 @@ bool validateMineCount(int enteredMineCount, int matrix_dimension)
     }
 }
 
-bool validateCommand(string command)
-{
-    if (command != "open" && command != "mark" && command != "unmark" && command != "print")
+bool validateCommand(char command) {
+    if (command != 'o' && command != 'm' && command != 'u' && command != 'p')
     {
         return false;
     }
@@ -330,7 +329,7 @@ int main()
 
     int matrix_dimension;
     int enteredMineCount;
-    string command;  // TODO
+    char command;  
     int minesCount;
     bool playing = true;
     int x_coordinate, y_coordinate;
@@ -371,13 +370,13 @@ int main()
     
     while (playing)
     {
-        cout << "Hey there, enter a valid command!";
+        cout << "Hey there, enter a valid command(o - open, m - mark, u - unmark):";
         cin >> command;
 
         bool resultValidateCommand = validateCommand(command);
         while (resultValidateCommand == false)
         {
-            cout << "Enter a valid command again! ";
+            cout << "Enter a valid command again(o - open, m - mark, u - unmark): ";
             cin >> command;
             resultValidateCommand = validateCommand(command);
         }
@@ -393,7 +392,7 @@ int main()
             resultAreValidCoordinates = areValidCoordinates(x_coordinate, y_coordinate, matrix_dimension);
         }
          
-        if (command == "open")
+        if (command == 'o')
         {
             bool resultIsCellOpened = isCellOpened(playerBoard, x_coordinate, y_coordinate);
             while (resultIsCellOpened == true)
@@ -419,8 +418,31 @@ int main()
             
             
         }
-        else if (command == "mark")
-        {
+        else if (command == 'm'){
+            bool resultIsCellFree = isCellFree(playerBoard, x_coordinate, y_coordinate);
+            while (resultIsCellFree == false)
+            {
+                cout << "Cell is not free! Enter another coordinates!";
+                cin >> x_coordinate >> y_coordinate;
+                resultIsCellFree = isCellFree(playerBoard, x_coordinate, y_coordinate);
+            }
+
+            result = openSquare(playerBoard, helpingBoard, x_coordinate, y_coordinate, matrix_dimension);
+
+            cout << "Player board visualization:" << endl;
+            print(playerBoard, matrix_dimension);
+
+            cout << "Helping board visualization:" << endl;
+            print(helpingBoard, matrix_dimension);
+
+
+            if (result == false)
+            {
+                playing = false;
+
+                return 0;
+            }
+        
         }
 
 
