@@ -331,6 +331,11 @@ void unmarkSquresAsMines(char playerBoard[max_X_coordinate][max_Y_coordinate], i
     playerBoard[x_coordinate][y_coordinate] = '*';
 }
 
+bool validateCellIsMarked(char playerBoard[max_X_coordinate][max_Y_coordinate], int x_coordinate, int y_coordinate)
+{
+    return playerBoard[x_coordinate][y_coordinate] == '!';
+}
+
 int main()
 {
     char playerBoard[max_X_coordinate][max_Y_coordinate] = {};
