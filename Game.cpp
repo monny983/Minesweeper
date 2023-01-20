@@ -336,6 +336,23 @@ bool validateCellIsMarked(char playerBoard[max_X_coordinate][max_Y_coordinate], 
     return playerBoard[x_coordinate][y_coordinate] == '!';
 }
 
+bool allMinesAreMarked(char playerBoard[max_X_coordinate][max_Y_coordinate], char helpingBoard[max_X_coordinate][max_Y_coordinate], int matrix_dimension)
+{
+    for (int i = 0; i < matrix_dimension; i++)
+    {
+        for (int j = 0; j < matrix_dimension; j++)
+        {
+            if (helpingBoard[i][j] == '@' && playerBoard[i][j] != '!')
+            {
+                return false;
+            }
+
+        }
+    }
+
+    return true;
+}
+
 int main()
 {
     char playerBoard[max_X_coordinate][max_Y_coordinate] = {};
