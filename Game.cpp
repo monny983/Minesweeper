@@ -419,29 +419,30 @@ int main()
             
         }
         else if (command == 'm'){
-            bool resultIsCellFree = isCellFree(playerBoard, x_coordinate, y_coordinate);
-            while (resultIsCellFree == false)
+            bool resultIsCellFreeForMark = isCellFree(playerBoard, x_coordinate, y_coordinate);
+            while (resultIsCellFreeForMark == false)
             {
                 cout << "Cell is not free! Enter another coordinates!";
                 cin >> x_coordinate >> y_coordinate;
-                resultIsCellFree = isCellFree(playerBoard, x_coordinate, y_coordinate);
+                resultIsCellFreeForMark = isCellFree(playerBoard, x_coordinate, y_coordinate);
             }
+            markSquresAsMines(playerBoard, x_coordinate, y_coordinate);
 
-            result = openSquare(playerBoard, helpingBoard, x_coordinate, y_coordinate, matrix_dimension);
-
-            cout << "Player board visualization:" << endl;
-            print(playerBoard, matrix_dimension);
-
-            cout << "Helping board visualization:" << endl;
-            print(helpingBoard, matrix_dimension);
-
-
-            if (result == false)
+            if (allMinesAreMarked(playerBoard, helpingBoard, matrix_dimension) && thereAreNoFreeSquares(playerBoard, matrix_dimension)) 
             {
+                cout << "YOU WIN!";
+
                 playing = false;
 
                 return 0;
             }
+
+            cout << "Player board visualization:" << endl;
+            print(playerBoard, matrix_dimension);
+
+            cout << "Helping board visualization:"  << endl;
+            print(helpingBoard, matrix_dimension);
+
         
         }
 
