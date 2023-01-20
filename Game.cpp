@@ -78,6 +78,189 @@ void createPlayerBoard(int matrix_dimension, char playerBoard[max_X_coordinate][
     }
 }
 
+bool hasMinesNeighbour(char helpingBoard[max_X_coordinate][max_Y_coordinate], int x_coordinate, int  y_coordinate, int matrix_dimension)
+{
+    if (y_coordinate + 1 >= 0 && y_coordinate + 1 < matrix_dimension)
+    {
+        if (helpingBoard[x_coordinate][y_coordinate + 1] == '@')
+        {
+            return true;
+
+        }
+    }
+    if (y_coordinate + 1 >= 0 && y_coordinate + 1 < matrix_dimension && x_coordinate + 1 >= 0 && x_coordinate + 1 < matrix_dimension)
+    {
+        if (helpingBoard[x_coordinate + 1][y_coordinate + 1] == '@')
+        {
+            return true;
+
+        }
+    }
+    if (x_coordinate + 1 >= 0 && x_coordinate + 1 < matrix_dimension)
+    {
+        if (helpingBoard[x_coordinate + 1][y_coordinate] == '@')
+        {
+            return true;
+        }
+    }
+    if (x_coordinate + 1 >= 0 && x_coordinate + 1 < matrix_dimension && y_coordinate - 1 >= 0 && y_coordinate - 1 < matrix_dimension)
+    {
+        if (helpingBoard[x_coordinate + 1][y_coordinate - 1] == '@')
+        {
+            return true;
+
+        }
+    }
+    if (y_coordinate - 1 >= 0 && y_coordinate - 1 < matrix_dimension)
+    {
+        if (helpingBoard[x_coordinate][y_coordinate - 1] == '@')
+        {
+            return true;
+
+        }
+    }
+    if (x_coordinate - 1 >= 0 && x_coordinate - 1 < matrix_dimension && y_coordinate - 1 >= 0 && y_coordinate - 1 < matrix_dimension)
+    {
+        if (helpingBoard[x_coordinate - 1][y_coordinate - 1] == '@')
+        {
+            return true;
+        }
+    }
+    if (x_coordinate - 1 >= 0 && x_coordinate - 1 < matrix_dimension)
+    {
+        if (helpingBoard[x_coordinate - 1][y_coordinate] == '@')
+        {
+            return true;
+
+        }
+    }
+    if (x_coordinate - 1 >= 0 && x_coordinate - 1 < matrix_dimension && y_coordinate + 1 >= 0 && y_coordinate + 1 < matrix_dimension)
+    {
+        if (helpingBoard[x_coordinate - 1][y_coordinate + 1] == '@')
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+void makeSquareOpened(char board[max_X_coordinate][max_Y_coordinate], int x_coordinate, int y_coordinate)
+{
+    board[x_coordinate][y_coordinate] = 'O';
+}
+
+int countTheNumberOfMines(char playerBoard[max_X_coordinate][max_Y_coordinate], int x_coordinate, int y_coordinate, int matrix_dimension)
+{
+    int countOfMines = 0;
+
+    if (y_coordinate + 1 >= 0 && y_coordinate + 1 < matrix_dimension) {
+        if (playerBoard[x_coordinate][y_coordinate + 1] == '@')
+        {
+            countOfMines += 1;
+
+        }
+    }
+    if (y_coordinate + 1 >= 0 && y_coordinate + 1 < matrix_dimension && x_coordinate + 1 >= 0 && x_coordinate + 1 < matrix_dimension) {
+        if (playerBoard[x_coordinate + 1][y_coordinate + 1] == '@')
+        {
+            countOfMines += 1;
+        }
+    }
+    if (x_coordinate + 1 >= 0 && x_coordinate + 1 < matrix_dimension)
+    {
+        if (playerBoard[x_coordinate + 1][y_coordinate] == '@')
+        {
+            countOfMines += 1;
+        }
+    }
+    if (x_coordinate + 1 >= 0 && x_coordinate + 1 < matrix_dimension && y_coordinate - 1 >= 0 && y_coordinate - 1 < matrix_dimension)
+    {
+        if (playerBoard[x_coordinate + 1][y_coordinate - 1] == '@')
+        {
+            countOfMines += 1;
+
+        }
+    }
+    if (y_coordinate - 1 >= 0 && y_coordinate - 1 < matrix_dimension)
+    {
+        if (playerBoard[x_coordinate][y_coordinate - 1] == '@')
+        {
+            countOfMines += 1;
+
+        }
+    }
+    if (x_coordinate - 1 >= 0 && x_coordinate - 1 < matrix_dimension && y_coordinate - 1 >= 0 && y_coordinate - 1 < matrix_dimension)
+    {
+        if (playerBoard[x_coordinate - 1][y_coordinate - 1] == '@')
+        {
+            countOfMines += 1;
+        }
+    }
+    if (x_coordinate - 1 >= 0 && x_coordinate - 1 < matrix_dimension)
+    {
+        if (playerBoard[x_coordinate - 1][y_coordinate] == '@')
+        {
+            countOfMines += 1;
+
+        }
+    }
+    if (x_coordinate - 1 >= 0 && x_coordinate - 1 < matrix_dimension && y_coordinate + 1 >= 0 && y_coordinate + 1 < matrix_dimension)
+    {
+        if (playerBoard[x_coordinate - 1][y_coordinate + 1] == '@')
+        {
+            countOfMines += 1;
+        }
+    }
+
+    return countOfMines;
+}
+
+void addNumberToBoard(char board[max_X_coordinate][max_Y_coordinate], char helpingBoard[max_X_coordinate][max_Y_coordinate], int x_coordinate, int y_coordinate, int matrix_dimension)
+{
+    int resultCountTheNumberOfMines = countTheNumberOfMines(helpingBoard, x_coordinate, y_coordinate, matrix_dimension);
+    
+    board[x_coordinate][y_coordinate] = (char)resultCountTheNumberOfMines;
+}
+
+bool openSquare(char playerBoard[max_X_coordinate][max_Y_coordinate], char helpingBoard[max_X_coordinate][max_Y_coordinate], int x_coordinate, int y_coordinate, int matrix_dimension)
+{
+    if (helpingBoard[x_coordinate][y_coordinate] == '@')
+    {
+        cout << "End of game. This is a mine!" << endl;
+        return false;
+    }
+
+    bool resultHasMinesNeighbour = hasMinesNeighbour(helpingBoard, x_coordinate, y_coordinate, matrix_dimension);
+
+    if (resultHasMinesNeighbour == true)
+    {
+        addNumberToBoard(playerBoard, helpingBoard, x_coordinate, y_coordinate, matrix_dimension);
+
+        addNumberToBoard(helpingBoard, helpingBoard, x_coordinate, y_coordinate, matrix_dimension);
+    }
+
+    else
+    {
+        makeSquareOpened(playerBoard, x_coordinate, y_coordinate);
+        makeSquareOpened(helpingBoard, x_coordinate, y_coordinate);
+
+        for (int i = 0; i < matrix_dimension; i++)
+            {
+                for (int j = 0; j < matrix_dimension; j++)
+                {
+                    if (helpingBoard[i][j] == '*' && isNeighbour(helpingBoard, x_coordinate, y_coordinate, i, j)) {
+                        openSquare(playerBoard, helpingBoard, i, j, matrix_dimension);
+                    }
+
+                }
+            } 
+    }
+
+    return true;
+}
+
+
 
 void addMinesToBoard(char playerBoard[max_X_coordinate][max_Y_coordinate], int enteredMineCount, int matrix_dimension)
 {
@@ -170,6 +353,34 @@ int main()
             cin >> x_coordinate >> y_coordinate;
             resultAreValidCoordinates = areValidCoordinates(x_coordinate, y_coordinate, matrix_dimension);
         }
+         
+        if (command == "open")
+        {
+            bool resultIsCellOpened = isCellOpened(playerBoard, x_coordinate, y_coordinate);
+            while (resultIsCellOpened == true)
+            {
+                cout << "Cell is not free! Enter another coordinates!";
+                cin >> x_coordinate >> y_coordinate;
+                resultIsCellOpened = isCellOpened(playerBoard, x_coordinate, y_coordinate);
+            }
+
+            // TODO: Check whether the cell is marked 
+
+            result = openSquare(playerBoard, helpingBoard, x_coordinate, y_coordinate, matrix_dimension);
+
+            if (result == false)
+            {
+                playing = false;
+                return 0;
+            }
+
+            cout << "Player board visualization: " << endl;
+            print(playerBoard, matrix_dimension);
+
+            cout << "Helping board visualization: " << endl;
+            print(helpingBoard, matrix_dimension);
+        }
+
 
    
 }
