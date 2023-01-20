@@ -1,6 +1,7 @@
 Играта Minesweeper е написана на C++.
 
 Описание на играта Minesweeper: https://en.wikipedia.org/wiki/Minesweeper_(video_game)
+
 Oнлайн версия на играта Minesweeper:https://minesweeperonline.com/
 
 Цел на играта: да се разкрият всички позиции в дадена квадратна матрица, които не са означени като минирани,
