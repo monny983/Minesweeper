@@ -218,7 +218,7 @@ bool openSquare(char playerBoard[max_X_coordinate][max_Y_coordinate], char helpi
 }
 
 bool areValidCoordinates(int x_coordinate, int y_coordinate, int matrix_dimension) {
-    return x_coordinate >= 0 && x_coordinate <= matrix_dimension && y_coordinate >= 0 && y_coordinate <= matrix_dimension; //3 ili 1 ili 0
+    return x_coordinate >= 0 && x_coordinate <= matrix_dimension && y_coordinate >= 0 && y_coordinate <= matrix_dimension; 
 }
 
 void markSquresAsMines(char playerBoard[max_X_coordinate][max_Y_coordinate], int x_coordinate, int y_coordinate) {
@@ -268,7 +268,8 @@ bool validateCellIsMarked(char playerBoard[max_X_coordinate][max_Y_coordinate], 
     return playerBoard[x_coordinate][y_coordinate] == '!';
 }
 
-bool allMinesAreMarked(char playerBoard[max_X_coordinate][max_Y_coordinate], char helpingBoard[max_X_coordinate][max_Y_coordinate], int matrix_dimension) {
+bool allMinesAreMarked(char playerBoard[max_X_coordinate][max_Y_coordinate], char helpingBoard[max_X_coordinate][max_Y_coordinate],
+                       int matrix_dimension) {
     for (int i = 0; i < matrix_dimension; i++) {
         for (int j = 0; j < matrix_dimension; j++) {
             if (helpingBoard[i][j] == '@' && playerBoard[i][j] != '!') {
