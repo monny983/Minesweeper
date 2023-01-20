@@ -48,6 +48,24 @@ bool validateMineCount(int enteredMineCount, int matrix_dimension)
     }
 }
 
+bool validateCommand(string command)
+{
+    if (command != "open" && command != "mark" && command != "unmark" && command != "print")
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+
+bool areValidCoordinates(int x_coordinate, int y_coordinate, int matrix_dimension)
+{
+    return x_coordinate >= 0 && x_coordinate <= matrix_dimension && y_coordinate >= 0 && y_coordinate <= matrix_dimension;  //3 ili 1 ili 0
+}
+
 void createPlayerBoard(int matrix_dimension, char playerBoard[max_X_coordinate][max_Y_coordinate])
 {
     for (int i = 0; i < matrix_dimension; i++)
@@ -59,6 +77,7 @@ void createPlayerBoard(int matrix_dimension, char playerBoard[max_X_coordinate][
         }
     }
 }
+
 
 void addMinesToBoard(char playerBoard[max_X_coordinate][max_Y_coordinate], int enteredMineCount, int matrix_dimension)
 {
@@ -127,4 +146,30 @@ int main()
 
     cout << "Helping board visualization:" << endl;
     print(helpingBoard, matrix_dimension);
+    
+     while (playing)
+    {
+        cout << "Hey there, enter a valid command!";
+        cin >> command;
+
+        bool resultValidateCommand = validateCommand(command);
+        while (resultValidateCommand == false)
+        {
+            cout << "Enter a valid command again! ";
+            cin >> command;
+            resultValidateCommand = validateCommand(command);
+        }
+        cout << "Enter valid coordinates: ";
+
+        cin >> x_coordinate >> y_coordinate;
+         
+        bool resultAreValidCoordinates = areValidCoordinates(x_coordinate, y_coordinate, matrix_dimension);
+        while (resultAreValidCoordinates == false)
+        {
+            cout << "Enter again valid coordinates";
+            cin >> x_coordinate >> y_coordinate;
+            resultAreValidCoordinates = areValidCoordinates(x_coordinate, y_coordinate, matrix_dimension);
+        }
+
+   
 }
