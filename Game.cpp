@@ -7,6 +7,7 @@ const int max_Y_coordinate = 100;
 
 const int maxNumberOfHiddenMines = 30;
 
+//checks if the cell is free
 bool isCellFree(char playerBoard[max_X_coordinate][max_Y_coordinate], int x_coordinate, int y_coordinate) {
     return playerBoard[x_coordinate][y_coordinate] == '*';
 }
@@ -21,6 +22,7 @@ void print(char playerBoard[max_X_coordinate][max_Y_coordinate], int matrix_dime
     cout << endl;
 }
 
+//random placement of mines on the playing board
 void addMinesToBoard(char playerBoard[max_X_coordinate][max_Y_coordinate], int enteredMineCount, int matrix_dimension) {
     for (int j = 0; j < enteredMineCount; j++) {
 
@@ -140,6 +142,7 @@ int countTheNumberOfMines(char playerBoard[max_X_coordinate][max_Y_coordinate], 
     return countOfMines;
 }
 
+//puts a digit = the number of adjacent mines
 void addNumberToBoard(char board[max_X_coordinate][max_Y_coordinate], char helpingBoard[max_X_coordinate][max_Y_coordinate],
     int x_coordinate, int y_coordinate, int matrix_dimension) {
     int resultCountTheNumberOfMines = countTheNumberOfMines(helpingBoard, x_coordinate, y_coordinate, matrix_dimension);
