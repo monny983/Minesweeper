@@ -13,6 +13,19 @@ bool isCellFree(char playerBoard[max_X_coordinate][max_Y_coordinate], int x_coor
     return playerBoard[x_coordinate][y_coordinate] == '*';
 }
 
+void print(char playerBoard[max_X_coordinate][max_Y_coordinate], int matrix_dimension)
+{
+    for (int i = 0; i < matrix_dimension; i++)
+    {
+        for (int j = 0; j < matrix_dimension; j++)
+        {
+            cout << " " << playerBoard[i][j];
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
 bool validateMatrixDimension(int matrix_dimension)
 {
     if (matrix_dimension >= 3 && matrix_dimension <= 10)
@@ -108,4 +121,10 @@ int main()
     createPlayerBoard(matrix_dimension, helpingBoard);
 
     addMinesToBoard(helpingBoard, enteredMineCount, matrix_dimension);
+    
+    cout << "Player board visualization:" << endl;
+    print(playerBoard, matrix_dimension);
+
+    cout << "Helping board visualization:" << endl;
+    print(helpingBoard, matrix_dimension);
 }
