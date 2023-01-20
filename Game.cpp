@@ -26,6 +26,27 @@ void print(char playerBoard[max_X_coordinate][max_Y_coordinate], int matrix_dime
     cout << endl;
 }
 
+void addMinesToBoard(char playerBoard[max_X_coordinate][max_Y_coordinate], int enteredMineCount, int matrix_dimension)
+{
+    for (int j = 0; j < enteredMineCount; j++)
+    {
+
+        int randomRow = (rand() % matrix_dimension) + 1;
+        int randomColumn = (rand() % matrix_dimension) + 1;
+
+        bool isCellFreeResult = isCellFree(playerBoard, randomRow, randomColumn);
+
+        while (isCellFreeResult == false) {
+            randomRow = (rand() % matrix_dimension) + 1;
+            randomColumn = (rand() % matrix_dimension) + 1;
+
+            isCellFreeResult = isCellFree(playerBoard, randomRow, randomColumn);
+        }
+
+        playerBoard[randomRow][randomColumn] = '@';
+    }
+}
+
 bool validateMatrixDimension(int matrix_dimension)
 {
     if (matrix_dimension >= 3 && matrix_dimension <= 10)
@@ -260,29 +281,6 @@ bool openSquare(char playerBoard[max_X_coordinate][max_Y_coordinate], char helpi
     return true;
 }
 
-
-
-void addMinesToBoard(char playerBoard[max_X_coordinate][max_Y_coordinate], int enteredMineCount, int matrix_dimension)
-{
-    for (int j = 0; j < enteredMineCount; j++)
-    {
-
-        int randomRow = (rand() % matrix_dimension) + 1;
-        int randomColumn = (rand() % matrix_dimension) + 1;
-
-        bool isCellFreeResult = isCellFree(playerBoard, randomRow, randomColumn);
-
-        while (isCellFreeResult == false) {
-            randomRow = (rand() % matrix_dimension) + 1;
-            randomColumn = (rand() % matrix_dimension) + 1;
-
-            isCellFreeResult = isCellFree(playerBoard, randomRow, randomColumn);
-        }
-
-        playerBoard[randomRow][randomColumn] = '@';
-    }
-}
-
 int main()
 {
     char playerBoard[max_X_coordinate][max_Y_coordinate] = {};
@@ -364,22 +362,26 @@ int main()
                 resultIsCellOpened = isCellOpened(playerBoard, x_coordinate, y_coordinate);
             }
 
-            // TODO: Check whether the cell is marked 
-
             result = openSquare(playerBoard, helpingBoard, x_coordinate, y_coordinate, matrix_dimension);
-
-            if (result == false)
-            {
-                playing = false;
-                return 0;
-            }
 
             cout << "Player board visualization: " << endl;
             print(playerBoard, matrix_dimension);
 
             cout << "Helping board visualization: " << endl;
             print(helpingBoard, matrix_dimension);
+            
+            if (result == false)
+            {
+                playing = false;
+                return 0;
+            }
+            
+            
         }
+        else if (command == "mark")
+        {
+        }
+
 
 
     }
