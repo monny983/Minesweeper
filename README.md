@@ -11,5 +11,6 @@ Oнлайн версия на играта Minesweeper:https://minesweeperonline
 Играта може да се стартира чрез g++ компилатора на Linux:
 
 g++ Game.cpp
+
 ./a.out
 
